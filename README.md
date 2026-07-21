@@ -166,7 +166,6 @@ Expense_Manager/
 <details>
 <summary>Click to view screenshots</summary>
 
-*(Add your screenshots inside `/public/screenshots/` and update these paths)*
 - **Budget Entry Screen:** ![Budget Entry](public/screenshots/budget_entry.png)
 - **Dashboard Overview:** ![Dashboard Overview](public/screenshots/dashboard.png)
 - **Add Expense Modal:** ![Add Expense](public/screenshots/add_expense.png)
