@@ -12,7 +12,7 @@
 
 **Expense Planner** is a modern, responsive, and intuitive client-side application designed to help users control their finances. It enables budget allocation, real-time expenditure monitoring with dynamic progress visualization, categorized filtering, and fluid gesture-based expense management.
 
-### 🚀 **Live Demo:** [Expense Tracker](https://expense-manager-jet-chi.vercel.app/)
+### 🚀 **Live Demo:** [Expense Manager](https://expense-manager-jet-chi.vercel.app/)
 
 ---
 
