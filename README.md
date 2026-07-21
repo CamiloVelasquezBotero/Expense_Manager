@@ -1,77 +1,128 @@
 # 📊 Expense Planner (Planificador de Gastos)
 
-A modern, highly interactive, and responsive personal finance application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS v4**. This project showcases clean code practices, custom hooks, and state management using the **React Context API** paired with the **useReducer** pattern.
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Completed-success?style=for-the-badge" alt="Status" />
+  <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="TailwindCSS v4" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+</div>
 
-Designed with a focus on seamless user experience (UX) and visual polish, the application helps users allocate a budget, track expenditures in real-time, filter transactions by category, and manage records via fluid swipeable actions.
+<br />
 
----
+**Expense Planner** is a modern, responsive, and intuitive client-side application designed to help users control their finances. It enables budget allocation, real-time expenditure monitoring with dynamic progress visualization, categorized filtering, and fluid gesture-based expense management.
 
-## 🚀 Key Features
-
-*   **Smart Budget Tracking**: Input your starting budget to unlock the main control panel. Watch your available balance and spending metrics update instantly.
-*   **Dynamic Progress Visualization**: An interactive circular progress bar (`react-circular-progressbar`) dynamically visualizes the percentage of the budget spent, changing path color to alert the user when limits are reached.
-*   **Intuitive Transaction Management**: Add, update, and delete expenses. Includes custom date-picking capability and input validation.
-*   **Bespoke Categorization**: Categorize your spending (e.g., Savings, Food, Home, Health, Leisure, Utilities, Subscriptions) with beautiful SVG icons.
-*   **Dynamic Filtering**: Instantly filter your list of expenses by category to analyze spending patterns.
-*   **Swipe to Action**: Interactive mobile-friendly list items using `react-swipeable-list`—swipe right to edit/update and swipe left to delete.
-*   **Local Storage Persistence**: State is automatically persisted in the browser's `localStorage` so users never lose their budget or expense data on page refresh.
+### 🚀 **Live Demo:** [Expense Tracker](https://expense-manager-jet-chi.vercel.app/)
 
 ---
 
-## 🛠️ Tech Stack & Tools
+## 📖 Table of Contents
 
-*   **Frontend Library**: [React 19](https://react.dev/)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/) for complete type safety and robust developer experience
-*   **Build Tool & Dev Server**: [Vite](https://vite.dev/) (fast HMR and building pipeline)
-*   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with native Vite integration (`@tailwindcss/vite`)
-*   **State Management**: React **Context API** combined with **useReducer** for clean state segregation
-*   **Interactions & UI components**:
-    *   `react-swipeable-list` for native-feeling swipe gestures
-    *   `react-circular-progressbar` for spending metrics visualization
-    *   `react-date-picker` for date selection
-    *   `@headlessui/react` for accessible modal overlays
-*   **Utilities**: `uuid` for secure unique identifier generation
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture & Patterns](#-architecture--patterns)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Screenshots](#-screenshots)
+- [Author](#-author)
 
 ---
 
-## 📐 Architecture & State Flow
+## 🎯 Overview
 
-The application utilizes a unidirectionally-managed state powered by a Reducer pattern. This separation of concerns simplifies testing and debugging.
+Expense Planner provides a seamless, single-page interactive dashboard split into two main states:
 
-```mermaid
-flowchart TD
-    A[BudgetContextProvider] -->|Exposes State & Dispatch| B[useBudget Custom Hook]
-    B --> C[BudgetTracker]
-    B --> D[ExpenseForm / Modal]
-    B --> E[ExpenseList / Detail]
-    B --> F[FilterByCategory]
-
-    D -->|Dispatch: add-expense / update-expense| G(budgetReducer)
-    E -->|Dispatch: remove-expense / get-expense-by-id| G
-    F -->|Dispatch: add-filter-category| G
-    C -->|Dispatch: reset-app| G
-
-    G -->|Computes New State| A
-```
-
-### Supported Reducer Actions
-
-Located in `src/reducers/reducer-budget.ts`:
-*   `add-budget`: Sets the primary budget threshold.
-*   `show-modal` / `close-modal`: Controls modal visibility for expense creation/editing.
-*   `add-expense`: Saves a new expense and generates a unique ID using `uuid`.
-*   `remove-expense`: Deletes an expense by its ID.
-*   `get-expense-by-id`: Pre-populates the modal for editing an existing item.
-*   `update-expense`: Commits edits back to the expense collection.
-*   `reset-app`: Clears all state and local storage data, bringing the user back to the setup step.
-*   `add-filter-category`: Restricts the visible list to a chosen category.
+1. **Initial Budget Setup**: A simple entry form that registers the user's initial budget.
+2. **Interactive Tracker Dashboard**: Once the budget is established, the application displays a real-time tracking ring (spent percentage), breakdown displays (total budget, remaining budget, spent amount), a quick action category filter, a transaction log, and a modal form to create/edit expenses.
 
 ---
 
-## 📁 File Structure
+## ✨ Key Features
+
+### 💰 Budget Management
+- **Initial Setup:** Enter your starting capital to boot the dashboard.
+- **Budget Tracking Ring:** A beautiful circular progress bar that updates dynamically as expenses are recorded. The path changes colors (e.g., shifts to red at 100% consumption) to visually alert the user.
+- **Detailed Summary:** Real-time calculation showing original budget, remaining funds, and cumulative expenses.
+
+### 📝 Expense Operations
+- **Dynamic Creation & Editing:** Add description, amount, category, and date.
+- **Accessible Modals:** Powered by Headless UI to present creation and modification interfaces without cluttering the screen.
+- **Validation:** Visual inline warnings prevent saving empty fields or values exceeding the remaining budget.
+
+### 📱 Swipe-to-Action Gestures
+- **Swipe Right to Edit:** Instantly opens the edit form pre-populated with details.
+- **Swipe Left to Delete:** Safely removes the transaction from the list.
+
+### 🔍 Filtering & Data Persistence
+- **Category Filter:** Instantly filter expenses down to Ahorro, Comida, Casa, Gastos Varios, Ocio, Salud, or Suscripciones.
+- **Local Storage Integration:** Automatic persistence keeps all inputs and configurations intact across page refreshes.
+
+---
+
+## 🛠 Tech Stack
+
+Built with modern web development best practices:
+
+- **Frontend Library:** [React 19](https://react.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) for complete type safety
+- **Build Tool:** [Vite](https://vite.dev/) (fast HMR and building pipeline)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with native Vite integration (`@tailwindcss/vite`)
+- **State Management:** React **Context API** combined with **useReducer** for clean state segregation
+- **UI Components & Icons:**
+  - `@headlessui/react` (Accessible modals)
+  - `react-swipeable-list` (Native-like swipe gestures)
+  - `react-circular-progressbar` (Progress visualization)
+  - `react-date-picker` (Interactive calendars)
+  - `uuid` (Unique transaction IDs)
+
+---
+
+## 🏗 Architecture & Patterns
+
+- **Context API + Reducer Pattern:** Global state is centrally managed via a pure reducer function in `reducer-budget.ts`, decoupling state transitions from UI code.
+- **Custom Hooks:** Exposes the React context safely via the `useBudget` custom hook, reducing boilerplate consumption.
+- **Strong Typings:** End-to-end type safety for components, actions, state, categories, and raw records.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- `npm` or `yarn`
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/CamiloVelasquezBotero/Expense_Manager.git
+   cd Expense_Manager
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+4. **Build for Production:**
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 📁 Project Structure
 
 ```text
-expense-manager/
+Expense_Manager/
 ├── src/
 │   ├── components/            # Reusable UI & Layout Components
 │   │   ├── AmountDisplay.tsx  # Formats and displays currency details
@@ -110,45 +161,26 @@ expense-manager/
 
 ---
 
-## ⚙️ Installation & Getting Started
+## 📸 Screenshots
 
-Follow these steps to run the project locally.
+<details>
+<summary>Click to view screenshots</summary>
 
-### Prerequisites
+*(Add your screenshots inside `/public/screenshots/` and update these paths)*
+- **Budget Entry Screen:** ![Budget Entry](public/screenshots/budget_entry.png)
+- **Dashboard Overview:** ![Dashboard Overview](public/screenshots/dashboard.png)
+- **Add Expense Modal:** ![Add Expense](public/screenshots/add_expense.png)
 
-Ensure you have [Node.js](https://nodejs.org/) installed (v18+ recommended) and `npm` or `yarn`.
-
-### Steps
-
-1.  **Clone the Repository**:
-    ```bash
-    git clone https://github.com/your-username/expense-planner.git
-    cd expense-planner
-    ```
-
-2.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
-
-3.  **Run Development Server**:
-    ```bash
-    npm run dev
-    ```
-    The application will run locally at [http://localhost:5173](http://localhost:5173).
-
-4.  **Build for Production**:
-    ```bash
-    npm run build
-    ```
-    Creates optimized static files in the `/dist` folder.
+</details>
 
 ---
 
-## 🌟 Highlights for Recruiters
+## 👨💻 Author
 
-*   **Clean Architecture**: Separation of UI components, custom hooks, and business logic (via Reducer).
-*   **Strong Typings**: Deeply integrated TypeScript definitions ensuring zero implicit `any` and full safety across component props and payloads.
-*   **Tailwind CSS v4 Integration**: Uses the newest CSS-first Vite plugin for outstanding performance and build times.
-*   **Modern Web APIs**: Practical integration with `localStorage` for responsive client-side persistence.
-*   **Interactive UI Patterns**: Mobile-responsive swipeable gestures, accessible dialog modal components, and dynamic HSL color shifts depending on the utilization threshold.
+**Camilo Velásquez Botero**  
+Full Stack Web Developer  
+- [GitHub](https://github.com/CamiloVelasquezBotero)
+- [LinkedIn](https://www.linkedin.com/in/camilodeveloper)
+
+---
+*If you liked this project, please consider giving it a ⭐ on GitHub!*
